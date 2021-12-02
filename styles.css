@@ -13,3 +13,7 @@ body {
 button {
   cursor: pointer;
 }
+
+#draw-cards {
+  display: none;
+}
