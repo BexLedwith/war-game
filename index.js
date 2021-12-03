@@ -23,6 +23,8 @@ const cardValsArr = [
 ];
 
 const winnerDisplay = document.getElementById("header");
+const cardsRemaining = document.getElementById("cards-remaining");
+
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
@@ -71,6 +73,8 @@ function draw() {
           <image src=${cardsImg[1]} class="card">`;
 
       cardsImg = [];
+      cardsRemaining.innerText = `
+      cards remaining: ${data.remaining}`;
       return cardsArr;
     })
     .then(function (cardsArr) {

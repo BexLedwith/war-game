@@ -72,6 +72,15 @@ button {
   margin-top: 0;
 }
 
+#cards-remaining {
+  margin: 0;
+  margin-left: 1em;
+  padding: 0;
+  font-size: 1.125em;
+  position: fixed;
+  top: 0;
+}
+
 /**
  * Challenge:
  * 
