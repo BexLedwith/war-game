@@ -82,26 +82,30 @@ function draw() {
           <image src=${cardsImg[1]} class="card">`;
 
       cardsImg = [];
+      determineWinner(cardsArr[0].value, cardsArr[1].value);
       if (data.remaining === 0) {
         drawBtn.disabled = true;
+        winnerDisplay.textContent = "GAME OVER";
+        compScore > playerScore
+          ? (compScoreText.textContent = "You Lost")
+          : (compScoreText.textContent = "You Won!");
       }
       return cardsArr;
-    })
-    .then(function determineWinner(cardsArr) {
-      const card1 = cardsArr[0].value;
-      const card2 = cardsArr[1].value;
-      const card1Index = cardValsArr.indexOf(card1);
-      const card2Index = cardValsArr.indexOf(card2);
-      card1Index > card2Index
-        ? ((winnerDisplay.textContent = "Computer Wins!"),
-          compScore++,
-          (compScoreText.textContent = `Computer Score: ${compScore}`))
-        : card1Index < card2Index
-        ? ((winnerDisplay.textContent = "You Win!"),
-          playerScore++,
-          (playerScoreText.textContent = `My Score: ${playerScore}`))
-        : (winnerDisplay.textContent = "It's War!");
     });
+}
+
+function determineWinner(card1, card2) {
+  const card1Index = cardValsArr.indexOf(card1);
+  const card2Index = cardValsArr.indexOf(card2);
+  card1Index > card2Index
+    ? ((winnerDisplay.textContent = "Computer Wins!"),
+      compScore++,
+      (compScoreText.textContent = `Computer Score: ${compScore}`))
+    : card1Index < card2Index
+    ? ((winnerDisplay.textContent = "You Win!"),
+      playerScore++,
+      (playerScoreText.textContent = `My Score: ${playerScore}`))
+    : (winnerDisplay.textContent = "It's War!");
 }
 
 drawBtn.addEventListener("click", draw);
