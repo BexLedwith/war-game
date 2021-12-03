@@ -88,7 +88,9 @@ function draw() {
         winnerDisplay.textContent = "GAME OVER";
         compScore > playerScore
           ? (compScoreText.textContent = "You Lost")
-          : (compScoreText.textContent = "You Won!");
+          : compScore < playerScore
+          ? (compScoreText.textContent = "You Won!")
+          : (compScoreText.textContent = "It's a Tie Game");
       }
       return cardsArr;
     });
