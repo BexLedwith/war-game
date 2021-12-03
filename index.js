@@ -1,6 +1,10 @@
 let deckId;
 let cardsArr = [];
 let cardsImg = [];
+
+const newdeckBtn = document.getElementById("new-deck");
+const drawBtn = document.getElementById("draw-cards");
+const cardsContainer = document.getElementById("cards");
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
@@ -11,7 +15,7 @@ function handleClick() {
     .then((document.getElementById("draw-cards").style.display = "block"));
 }
 
-document.getElementById("new-deck").addEventListener("click", handleClick);
+newdeckBtn.addEventListener("click", handleClick);
 /**
  * Challenge
  *
@@ -44,16 +48,16 @@ function draw() {
       for (card of cardsArr) {
         cardsImg.push(card.image);
       }
-      document.getElementById("cards").children[0].innerHTML = `
+      cardsContainer.children[0].innerHTML = `
           <image src=${cardsImg[0]} class="card">`;
-      document.getElementById("cards").children[1].innerHTML = `
+      cardsContainer.children[1].innerHTML = `
           <image src=${cardsImg[1]} class="card">`;
 
       cardsImg = [];
     });
 }
 
-document.getElementById("draw-cards").addEventListener("click", draw);
+drawBtn.addEventListener("click", draw);
 
 /**
  * Challenge:
