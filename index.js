@@ -1,6 +1,8 @@
 let deckId;
 let cardsArr = [];
 let cardsImg = [];
+let compScore = 0;
+let playerScore = 0;
 
 const newdeckBtn = document.getElementById("new-deck");
 const drawBtn = document.getElementById("draw-cards");
@@ -24,6 +26,8 @@ const cardValsArr = [
 
 const winnerDisplay = document.getElementById("header");
 const cardsRemaining = document.getElementById("cards-remaining");
+const compScoreText = document.getElementById("comp-score");
+const playerScoreText = document.getElementById("player-score");
 
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
@@ -83,16 +87,20 @@ function draw() {
       }
       return cardsArr;
     })
-    .then(function (cardsArr) {
+    .then(function determineWinner(cardsArr) {
       const card1 = cardsArr[0].value;
       const card2 = cardsArr[1].value;
       const card1Index = cardValsArr.indexOf(card1);
       const card2Index = cardValsArr.indexOf(card2);
       card1Index > card2Index
-        ? (winnerDisplay.innerText = "Computer Wins!")
+        ? ((winnerDisplay.textContent = "Computer Wins!"),
+          compScore++,
+          (compScoreText.textContent = `Computer Score: ${compScore}`))
         : card1Index < card2Index
-        ? (winnerDisplay.innerText = "You Win!")
-        : (winnerDisplay.innerText = "It's War!");
+        ? ((winnerDisplay.textContent = "You Win!"),
+          playerScore++,
+          (playerScoreText.textContent = `My Score: ${playerScore}`))
+        : (winnerDisplay.textContent = "It's War!");
     });
 }
 

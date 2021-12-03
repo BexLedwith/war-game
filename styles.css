@@ -47,8 +47,8 @@ button {
 .placeholder {
   border: 1px solid black;
   border-radius: 8px;
-  height: 28vh;
-  width: 20vh;
+  height: 21vh;
+  width: 15vh;
   margin: 2em auto;
 }
 
@@ -60,7 +60,7 @@ button {
 #draw-cards {
   display: none;
   width: 100vw;
-  position: fixed;
+  position: absolute;
   bottom: 0;
 }
 
