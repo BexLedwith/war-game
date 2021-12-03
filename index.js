@@ -47,6 +47,7 @@ function draw() {
       document.getElementById("cards").innerHTML = `
           <image src=${cardsImg[0]}>
           <image src=${cardsImg[1]}>`;
+      cardsImg = [];
     });
 }
 
