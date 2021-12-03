@@ -14,6 +14,10 @@ body {
   background-image: url("/img/table.jpg");
   background-size: 100%;
   background-repeat: repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -22,6 +26,14 @@ button {
   font-weight: 700;
   font-size: 2rem;
   border: none;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 0;
+}
+
+.placeholder {
+  border: 2px solid black;
+  width: 25vh;
   border-radius: 5px;
 }
 
@@ -32,14 +44,22 @@ button {
   bottom: 0;
 }
 
-#cards {
-  display: grid;
+#new-deck {
+  align-self: flex-start;
 }
 
-#cards > img {
-  margin: 1em auto;
-  width: auto;
-  max-height: 40vh;
+#cards {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: center;
+}
+
+#cards > img,
+.placeholder {
+  padding: 4px;
+  height: 35vh;
+  margin: 2em auto;
 }
 
 /**
