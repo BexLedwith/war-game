@@ -40,18 +40,13 @@ function draw() {
   fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
     .then((res) => res.json())
     .then(function (data) {
-      console.log(data);
       cardsArr = data.cards;
-      return cardsArr;
-    })
-    .then(function (cardsArr) {
       for (card of cardsArr) {
         cardsImg.push(card.image);
       }
-      for (img of cardsImg) {
-        document.body.innerHTML += `
-          <image src=${img}>`;
-      }
+      document.getElementById("cards").innerHTML = `
+          <image src=${cardsImg[0]}>
+          <image src=${cardsImg[1]}>`;
     });
 }
 
