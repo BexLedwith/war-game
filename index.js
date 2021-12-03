@@ -32,6 +32,7 @@ function handleClick() {
       cardsRemaining.innerText = `
         cards remaining: ${data.remaining}`;
       deckId = data.deck_id;
+      drawBtn.disabled = false;
     })
     .then((document.getElementById("draw-cards").style.display = "block"));
 }
@@ -77,7 +78,9 @@ function draw() {
           <image src=${cardsImg[1]} class="card">`;
 
       cardsImg = [];
-
+      if (data.remaining === 0) {
+        drawBtn.disabled = true;
+      }
       return cardsArr;
     })
     .then(function (cardsArr) {

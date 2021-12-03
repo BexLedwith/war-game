@@ -84,6 +84,11 @@ button {
   margin-left: 20px;
 }
 
+button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
 /**
  * Challenge:
  * 
