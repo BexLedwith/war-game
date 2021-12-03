@@ -1,5 +1,6 @@
 let deckId;
-
+let cardsArr = [];
+let cardsImg = [];
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
@@ -38,7 +39,28 @@ document.getElementById("new-deck").addEventListener("click", handleClick);
 function draw() {
   fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then(function (data) {
+      console.log(data);
+      cardsArr = data.cards;
+      return cardsArr;
+    })
+    .then(function (cardsArr) {
+      for (card of cardsArr) {
+        cardsImg.push(card.image);
+      }
+      for (img of cardsImg) {
+        document.body.innerHTML += `
+          <image src=${img}>`;
+      }
+    });
 }
 
 document.getElementById("draw-cards").addEventListener("click", draw);
+
+/**
+ * Challenge:
+ *
+ * Display the images of the 2 cards you drew in the browser.
+ * Probably best to use `innerHTML` to insert a couple <img> elements
+ * on the page.
+ */
