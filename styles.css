@@ -18,6 +18,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 button {
@@ -31,9 +32,8 @@ button {
   margin: 0;
 }
 
-#winner {
+#header {
   text-align: center;
-  color: white;
   font-weight: 700;
   margin: 1em auto 0;
 }

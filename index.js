@@ -22,7 +22,7 @@ const cardValsArr = [
   "ACE",
 ];
 
-const winnerDisplay = document.getElementById("winner");
+const winnerDisplay = document.getElementById("header");
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
