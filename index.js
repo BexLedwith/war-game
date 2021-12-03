@@ -63,6 +63,8 @@ function draw() {
   fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
     .then((res) => res.json())
     .then(function (data) {
+      cardsRemaining.innerText = `
+        cards remaining: ${data.remaining}`;
       cardsArr = data.cards;
       for (card of cardsArr) {
         cardsImg.push(card.image);
@@ -73,8 +75,7 @@ function draw() {
           <image src=${cardsImg[1]} class="card">`;
 
       cardsImg = [];
-      cardsRemaining.innerText = `
-      cards remaining: ${data.remaining}`;
+
       return cardsArr;
     })
     .then(function (cardsArr) {
