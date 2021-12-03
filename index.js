@@ -21,6 +21,8 @@ const cardValsArr = [
   "KING",
   "ACE",
 ];
+
+const winnerDisplay = document.getElementById("winner");
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
@@ -77,10 +79,10 @@ function draw() {
       const card1Index = cardValsArr.indexOf(card1);
       const card2Index = cardValsArr.indexOf(card2);
       card1Index > card2Index
-        ? console.log("Computer Wins!")
+        ? (winnerDisplay.innerText = "Computer Wins!")
         : card1Index < card2Index
-        ? console.log("You Win!")
-        : console.log("It's a Tie!");
+        ? (winnerDisplay.innerText = "You Win!")
+        : (winnerDisplay.innerText = "It's War!");
     });
 }
 
