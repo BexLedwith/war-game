@@ -44,9 +44,11 @@ function draw() {
       for (card of cardsArr) {
         cardsImg.push(card.image);
       }
-      document.getElementById("cards").innerHTML = `
-          <image src=${cardsImg[0]}>
-          <image src=${cardsImg[1]}>`;
+      document.getElementById("cards").children[0].innerHTML = `
+          <image src=${cardsImg[0]} class="card">`;
+      document.getElementById("cards").children[1].innerHTML = `
+          <image src=${cardsImg[1]} class="card">`;
+
       cardsImg = [];
     });
 }
