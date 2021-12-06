@@ -111,7 +111,7 @@ function determineWinner(card1, card2) {
     ? ((winnerDisplay.textContent = "Computer Wins!"), compScore++, scoreSync())
     : card1Index < card2Index
     ? ((winnerDisplay.textContent = "You Win!"), playerScore++, scoreSync())
-    : ((winnerDisplay.textContent = "It's War!"), war());
+    : (winnerDisplay.textContent = "It's War!");
 }
 
 drawBtn.addEventListener("click", draw);
