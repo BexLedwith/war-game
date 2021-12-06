@@ -7,6 +7,7 @@ let playerScore = 0;
 const newdeckBtn = document.getElementById("new-deck");
 const drawBtn = document.getElementById("draw-cards");
 const cardsContainer = document.getElementById("cards");
+const warBtn = document.getElementById("draw-three");
 
 const cardValsArr = [
   "2",
@@ -111,7 +112,8 @@ function determineWinner(card1, card2) {
     ? ((winnerDisplay.textContent = "Computer Wins!"), compScore++, scoreSync())
     : card1Index < card2Index
     ? ((winnerDisplay.textContent = "You Win!"), playerScore++, scoreSync())
-    : (winnerDisplay.textContent = "It's War!");
+    : ((winnerDisplay.textContent = "It's War!"),
+      (warBtn.style.display = "block"));
 }
 
 drawBtn.addEventListener("click", draw);
@@ -125,6 +127,10 @@ function loadImages() {
     cardsImg.push(card.image);
   }
 }
+
+warBtn.addEventListener("click", war);
+
+function war() {}
 
 /**
  * Challenge:

@@ -100,6 +100,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
+#draw-three {
+  height: 2em;
+  align-self: center;
+  margin-bottom: 1em;
+  display: none;
+}
+
 /**
  * Challenge:
  * 
@@ -109,4 +116,4 @@ button:disabled {
  * 2. Move the draw button to the very bottom of the page, full width
  * 3. Add some button styles. You can use the photo on the slides
  * for one option.
- */
+ */ ;
