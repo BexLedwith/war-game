@@ -44,13 +44,18 @@ button {
   margin: 1em auto 0;
 }
 
-.placeholder {
+.placeholder,
+.pile {
   border: 1px solid black;
   border-radius: 8px;
   height: 21vh;
   width: 15vh;
   margin: 2em auto;
 }
+
+/* .pile {
+    display:none;
+} */
 
 .card {
   width: 100%;
@@ -68,7 +73,8 @@ button {
   align-self: flex-start;
 }
 
-#cards {
+#cards,
+#piles {
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -76,6 +82,11 @@ button {
   margin: 2em;
   padding: 0;
   margin-top: 0;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: row;
 }
 
 #cards-remaining {
