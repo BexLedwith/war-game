@@ -45,7 +45,7 @@ button {
 }
 
 .placeholder,
-.pile {
+.pile-placeholder {
   border: 1px solid black;
   border-radius: 8px;
   height: 21vh;
@@ -53,9 +53,9 @@ button {
   margin: 2em auto;
 }
 
-/* .pile {
-    display:none;
-} */
+.pile-placeholder {
+  display: none;
+}
 
 .card {
   width: 100%;

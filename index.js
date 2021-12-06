@@ -8,6 +8,7 @@ const newdeckBtn = document.getElementById("new-deck");
 const drawBtn = document.getElementById("draw-cards");
 const cardsContainer = document.getElementById("cards");
 const warBtn = document.getElementById("draw-three");
+const pileContainer = document.getElementById("piles");
 
 const cardValsArr = [
   "2",
@@ -38,8 +39,7 @@ function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
     .then(function (data) {
-      cardsRemaining.innerText = `
-        cards remaining: ${data.remaining}`;
+      loadCards(data);
       deckId = data.deck_id;
       drawBtn.disabled = false;
     })
@@ -81,9 +81,7 @@ function draw() {
   fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
     .then((res) => res.json())
     .then(function (data) {
-      cardsRemaining.innerText = `
-        cards remaining: ${data.remaining}`;
-      cardsArr = data.cards;
+      loadCards(data);
       loadImages();
       cardsContainer.children[0].innerHTML = `
           <image src=${cardsImg[0]} class="card">`;
@@ -113,7 +111,8 @@ function determineWinner(card1, card2) {
     : card1Index < card2Index
     ? ((winnerDisplay.textContent = "You Win!"), playerScore++, scoreSync())
     : ((winnerDisplay.textContent = "It's War!"),
-      (warBtn.style.display = "block"));
+      (warBtn.style.display = "block"),
+      toggle("pile", "block"));
 }
 
 drawBtn.addEventListener("click", draw);
@@ -128,9 +127,35 @@ function loadImages() {
   }
 }
 
+function loadCards(data) {
+  cardsRemaining.innerText = `
+        cards remaining: ${data.remaining}`;
+  cardsArr = data.cards;
+}
+
+function toggle(className, displayState) {
+  const els = document.getElementsByClassName(className);
+
+  for (let i = 0; i < els.length; i++) {
+    els[i].style.display = displayState;
+  }
+}
+
 warBtn.addEventListener("click", war);
 
-function war() {}
+function war() {
+  fetch(
+    `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/pile/compPile/?count=3`
+  )
+    .then((res) => res.json())
+    .then(function (data) {
+      loadCards(data);
+      loadImages();
+      pileContainer.children[0].innerHTML = `
+      <img src=${cardsImg[2]} class="pile"/>`;
+      cardsImg = [];
+    });
+}
 
 /**
  * Challenge:
