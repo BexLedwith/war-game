@@ -29,6 +29,10 @@ const cardsRemaining = document.getElementById("cards-remaining");
 const compScoreText = document.getElementById("comp-score");
 const playerScoreText = document.getElementById("player-score");
 
+const sleep = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
 function handleClick() {
   fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
     .then((res) => res.json())
@@ -38,7 +42,13 @@ function handleClick() {
       deckId = data.deck_id;
       drawBtn.disabled = false;
     })
-    .then((document.getElementById("draw-cards").style.display = "block"));
+    .then((document.getElementById("draw-cards").style.display = "block"))
+    .then(
+      (compScore = 0),
+      (playerScore = 0),
+      scoreSync(),
+      (winnerDisplay.textContent = "Game of War")
+    );
 }
 
 newdeckBtn.addEventListener("click", handleClick);
@@ -73,9 +83,7 @@ function draw() {
       cardsRemaining.innerText = `
         cards remaining: ${data.remaining}`;
       cardsArr = data.cards;
-      for (card of cardsArr) {
-        cardsImg.push(card.image);
-      }
+      loadImages();
       cardsContainer.children[0].innerHTML = `
           <image src=${cardsImg[0]} class="card">`;
       cardsContainer.children[1].innerHTML = `
@@ -100,17 +108,24 @@ function determineWinner(card1, card2) {
   const card1Index = cardValsArr.indexOf(card1);
   const card2Index = cardValsArr.indexOf(card2);
   card1Index > card2Index
-    ? ((winnerDisplay.textContent = "Computer Wins!"),
-      compScore++,
-      (compScoreText.textContent = `Computer Score: ${compScore}`))
+    ? ((winnerDisplay.textContent = "Computer Wins!"), compScore++, scoreSync())
     : card1Index < card2Index
-    ? ((winnerDisplay.textContent = "You Win!"),
-      playerScore++,
-      (playerScoreText.textContent = `My Score: ${playerScore}`))
-    : (winnerDisplay.textContent = "It's War!");
+    ? ((winnerDisplay.textContent = "You Win!"), playerScore++, scoreSync())
+    : ((winnerDisplay.textContent = "It's War!"), war());
 }
 
 drawBtn.addEventListener("click", draw);
+
+function scoreSync() {
+  compScoreText.textContent = `Computer Score: ${compScore}`;
+  playerScoreText.textContent = `My Score: ${playerScore}`;
+}
+function loadImages() {
+  for (card of cardsArr) {
+    cardsImg.push(card.image);
+  }
+}
+
 /**
  * Challenge:
  *
