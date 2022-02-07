@@ -84,6 +84,9 @@ function draw() {
     .then(function (data) {
       loadCards(data);
       loadImages();
+      toggle("pilePlaceholder", "none");
+      pileContainer.children[0].innerHTML = "";
+      pileContainer.children[1].innerHTML = "";
       cardsContainer.children[0].innerHTML = `
           <image src=${cardsImg[0]} class="card">`;
       cardsContainer.children[1].innerHTML = `
@@ -91,17 +94,21 @@ function draw() {
 
       cardsImg = [];
       determineWinner(cardsArr[0].value, cardsArr[1].value);
-      if (data.remaining === 0) {
-        drawBtn.disabled = true;
-        winnerDisplay.textContent = "GAME OVER";
-        compScore > playerScore
-          ? (compScoreText.textContent = "You Lost")
-          : compScore < playerScore
-          ? (compScoreText.textContent = "You Won!")
-          : (compScoreText.textContent = "It's a Tie Game");
-      }
+      endgame(data);
       return cardsArr;
     });
+}
+
+function endgame(data) {
+  if (data.remaining === 0) {
+    drawBtn.disabled = true;
+    winnerDisplay.textContent = "GAME OVER";
+    compScore > playerScore
+      ? (compScoreText.textContent = "You Lost")
+      : compScore < playerScore
+      ? (compScoreText.textContent = "You Won!")
+      : (compScoreText.textContent = "It's a Tie Game");
+  }
 }
 
 function determineWinner(card1, card2) {
@@ -157,6 +164,8 @@ function war() {
       cardsImg = [];
       determineWinner(cardsArr[2].value, cardsArr[5].value);
       (warBtn.style.display = "none"), (drawBtn.disabled = false);
+      endgame(data);
+      return cardsArr;
     });
 }
 
