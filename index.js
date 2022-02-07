@@ -9,6 +9,7 @@ const drawBtn = document.getElementById("draw-cards");
 const cardsContainer = document.getElementById("cards");
 const warBtn = document.getElementById("draw-three");
 const pileContainer = document.getElementById("piles");
+const pilePlaceholder = document.getElementsByClassName("pilePlaceholder");
 
 const cardValsArr = [
   "2",
@@ -112,7 +113,8 @@ function determineWinner(card1, card2) {
     ? ((winnerDisplay.textContent = "You Win!"), playerScore++, scoreSync())
     : ((winnerDisplay.textContent = "It's War!"),
       (warBtn.style.display = "block"),
-      toggle("pile", "block"));
+      (drawBtn.disabled = true),
+      toggle("pilePlaceholder", "block"));
 }
 
 drawBtn.addEventListener("click", draw);
@@ -135,7 +137,6 @@ function loadCards(data) {
 
 function toggle(className, displayState) {
   const els = document.getElementsByClassName(className);
-
   for (let i = 0; i < els.length; i++) {
     els[i].style.display = displayState;
   }
@@ -144,16 +145,18 @@ function toggle(className, displayState) {
 warBtn.addEventListener("click", war);
 
 function war() {
-  fetch(
-    `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/pile/compPile/?count=3`
-  )
+  fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=6`)
     .then((res) => res.json())
     .then(function (data) {
       loadCards(data);
       loadImages();
       pileContainer.children[0].innerHTML = `
       <img src=${cardsImg[2]} class="pile"/>`;
+      pileContainer.children[1].innerHTML = `
+      <img src=${cardsImg[5]} class="pile"/>`;
       cardsImg = [];
+      determineWinner(cardsArr[2].value, cardsArr[5].value);
+      (warBtn.style.display = "none"), (drawBtn.disabled = false);
     });
 }
 
