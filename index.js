@@ -36,23 +36,22 @@ const sleep = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
 };
 
-function handleClick() {
-  fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/")
-    .then((res) => res.json())
-    .then(function (data) {
-      loadCards(data);
-      deckId = data.deck_id;
-      drawBtn.disabled = false;
-    })
-    .then((document.getElementById("draw-cards").style.display = "block"))
-    .then(
-      (compScore = 0),
-      (playerScore = 0),
-      scoreSync(),
-      (winnerDisplay.textContent = "Game of War")
-    );
+async function handleClick() {
+  const res = await fetch(
+    "https://apis.scrimba.com/deckofcards/api/deck/new/shuffle/"
+  );
+  const data = await res.json();
+  cardsContainer.children[0].innerHTML = "";
+  cardsContainer.children[1].innerHTML = "";
+  loadCards(data);
+  deckId = data.deck_id;
+  drawBtn.disabled = false;
+  document.getElementById("draw-cards").style.display = "block";
+  compScore = 0;
+  playerScore = 0;
+  scoreSync();
+  winnerDisplay.textContent = "Game of War";
 }
-
 newdeckBtn.addEventListener("click", handleClick);
 /**
  * Challenge
@@ -78,25 +77,25 @@ newdeckBtn.addEventListener("click", handleClick);
  * that you'll see in the deck of cards API docs.
  */
 
-function draw() {
-  fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
-    .then((res) => res.json())
-    .then(function (data) {
-      loadCards(data);
-      loadImages();
-      toggle("pilePlaceholder", "none");
-      pileContainer.children[0].innerHTML = "";
-      pileContainer.children[1].innerHTML = "";
-      cardsContainer.children[0].innerHTML = `
-          <image src=${cardsImg[0]} class="card">`;
-      cardsContainer.children[1].innerHTML = `
-          <image src=${cardsImg[1]} class="card">`;
+async function draw() {
+  const res = await fetch(
+    `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`
+  );
+  const data = await res.json();
+  loadCards(data);
+  loadImages();
+  toggle("pilePlaceholder", "none");
+  pileContainer.children[0].innerHTML = "";
+  pileContainer.children[1].innerHTML = "";
+  cardsContainer.children[0].innerHTML = `
+        <image src=${cardsImg[0]} class="card">`;
+  cardsContainer.children[1].innerHTML = `
+        <image src=${cardsImg[1]} class="card">`;
 
-      cardsImg = [];
-      determineWinner(cardsArr[0].value, cardsArr[1].value);
-      endgame(data);
-      return cardsArr;
-    });
+  cardsImg = [];
+  determineWinner(cardsArr[0].value, cardsArr[1].value);
+  endgame(data);
+  return cardsArr;
 }
 
 function endgame(data) {
@@ -151,22 +150,22 @@ function toggle(className, displayState) {
 
 warBtn.addEventListener("click", war);
 
-function war() {
-  fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=6`)
-    .then((res) => res.json())
-    .then(function (data) {
-      loadCards(data);
-      loadImages();
-      pileContainer.children[0].innerHTML = `
-      <img src=${cardsImg[2]} class="pile"/>`;
-      pileContainer.children[1].innerHTML = `
-      <img src=${cardsImg[5]} class="pile"/>`;
-      cardsImg = [];
-      determineWinner(cardsArr[2].value, cardsArr[5].value);
-      (warBtn.style.display = "none"), (drawBtn.disabled = false);
-      endgame(data);
-      return cardsArr;
-    });
+async function war() {
+  const res = await fetch(
+    `https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=6`
+  );
+  const data = await res.json();
+  loadCards(data);
+  loadImages();
+  pileContainer.children[0].innerHTML = `
+    <img src=${cardsImg[2]} class="pile"/>`;
+  pileContainer.children[1].innerHTML = `
+    <img src=${cardsImg[5]} class="pile"/>`;
+  cardsImg = [];
+  determineWinner(cardsArr[2].value, cardsArr[5].value);
+  (warBtn.style.display = "none"), (drawBtn.disabled = false);
+  endgame(data);
+  return cardsArr;
 }
 
 /**
